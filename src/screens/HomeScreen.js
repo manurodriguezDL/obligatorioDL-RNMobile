@@ -15,7 +15,7 @@ import {itemsSelector} from '../slices/cart';
 import {getProducts, getPromoted} from '../api/mobileAPI';
 import * as RootNavigation from '../navigation/RootNavigation';
 
-const updatequantitys = (items, cartItems) => {
+const updateQuantities = (items, cartItems) => {
   let updatedProducts = [];
   items.forEach(item => {
     let itemInCart = cartItems.find(cartItem => cartItem.name === item.name);
@@ -35,6 +35,7 @@ const HomeScreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const cartItems = useSelector(itemsSelector);
+  const [allItems, setAllItems] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +47,8 @@ const HomeScreen = () => {
         console.log('error is', err);
         setError('Oops! something happened. Please try again Later!');
       } finally {
-        setProducts(updatequantitys(items.data, cartItems));
+        setAllItems(items.data);
+        setProducts(updateQuantities(items.data, cartItems));
         setPromoted(promotedItems.data);
         setLoading(false);
       }
@@ -57,7 +59,7 @@ const HomeScreen = () => {
 
   const filterBySearch = searchTerm => {
     setProducts(
-      products.filter(
+      allItems.filter(
         product =>
           product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
