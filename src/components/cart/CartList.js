@@ -16,7 +16,6 @@ const groupItems = items => {
 const CartList = ({items}) => {
   return (
     <FlatList
-      style={{flex: 1}}
       contentContainerStyle={styles.list}
       data={groupItems(items)}
       renderItem={({item}) => {
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   list: {
-    flex: 1,
+    paddingBottom: 60,
   },
 });
 

@@ -26,6 +26,7 @@ const ProductsList = ({items}) => {
   }
   return (
     <SectionList
+      contentContainerStyle={{paddingBottom: 600}}
       sections={convertToSectionList(items)}
       keyExtractor={(item, index) => item + index}
       renderItem={({item, index}) => {
