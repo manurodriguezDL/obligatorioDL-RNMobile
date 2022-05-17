@@ -15,8 +15,6 @@ import {itemsSelector} from '../slices/cart';
 import {getProducts, getPromoted} from '../api/mobileAPI';
 import * as RootNavigation from '../navigation/RootNavigation';
 
-const promotedProducts = getPromoted();
-
 const updatequantitys = (items, cartItems) => {
   let updatedProducts = [];
   items.forEach(item => {

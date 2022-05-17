@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, View, Text} from 'react-native';
 
-const ErrorScreen = errorText => {
+const ErrorScreen = ({errorText}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  goBackButton: {
+    paddingTop: 25,
   },
 });
 
