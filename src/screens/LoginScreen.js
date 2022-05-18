@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  View,
-} from 'react-native';
+import {StyleSheet, SafeAreaView, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {login} from '../slices/auth';
+import {LoginUser} from '../slices/auth';
 import CompleteButton from '../components/misc/CompleteButton';
 
 const LoginScreen = () => {
@@ -18,7 +12,7 @@ const LoginScreen = () => {
         <CompleteButton
           title="Login"
           onPress={() => {
-            dispatch(login());
+            dispatch(LoginUser());
           }}
         />
       </View>

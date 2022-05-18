@@ -10,8 +10,8 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: state => {
-      state.token = uuidv4();
+    login: (state, {payload}) => {
+      state.token = payload;
     },
     logout: state => {
       state.token = undefined;
@@ -22,5 +22,12 @@ const authSlice = createSlice({
 export const {login, logout} = authSlice.actions;
 
 export const tokenSelector = state => state.auth.token;
+
+export function LoginUser() {
+  return dispatch => {
+    const token = uuidv4();
+    dispatch(login(token));
+  };
+}
 
 export default authSlice.reducer;
