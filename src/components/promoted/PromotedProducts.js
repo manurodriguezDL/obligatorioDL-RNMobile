@@ -26,7 +26,7 @@ const PromotedProducts = () => {
       }
     };
     fetchData();
-  });
+  }, []);
 
   if (loading) {
     return <LoadingScreen />;
