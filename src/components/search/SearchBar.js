@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TextInput, StyleSheet, Image} from 'react-native';
 
-const SearchBar = ({term, onTermChange, onTermSubmit}) => {
+const SearchBar = ({term, onTermChange}) => {
   return (
     <View style={styles.backgroundStyle}>
       <Image
@@ -13,7 +13,6 @@ const SearchBar = ({term, onTermChange, onTermSubmit}) => {
         autoCorrect={false}
         value={term}
         onChangeText={newTerm => onTermChange(newTerm)}
-        onEndEditing={onTermSubmit}
         style={styles.inputStyle}
         placeholder="Search"
       />

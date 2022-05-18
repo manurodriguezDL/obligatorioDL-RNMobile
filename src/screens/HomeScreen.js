@@ -80,7 +80,6 @@ const HomeScreen = () => {
           onTermChange={newTerm => {
             setTerm(newTerm);
           }}
-          onTermSubmit={() => filterBySearch(term)}
         />
         <ProductsList items={products} />
       </View>
