@@ -67,6 +67,10 @@ const CartScreen = () => {
                 try {
                   dispatch(cleanup());
                   await checkoutCart();
+                  showAlert(
+                    'Congrats!',
+                    'Checkout was successful and the cart is now empty',
+                  );
                 } catch (error) {
                   showAlert(
                     'Oops!',
@@ -75,10 +79,6 @@ const CartScreen = () => {
                 } finally {
                   dispatch(empty());
                   RootNavigation.navigate('Home');
-                  showAlert(
-                    'Congrats!',
-                    'Checkout was successful and the cart is now empty',
-                  );
                 }
               }}
             />
