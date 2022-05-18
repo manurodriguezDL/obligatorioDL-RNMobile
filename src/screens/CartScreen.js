@@ -65,6 +65,7 @@ const CartScreen = () => {
               title="Checkout"
               onPress={async () => {
                 try {
+                  dispatch(cleanup());
                   await checkoutCart();
                 } catch (error) {
                   showAlert(
