@@ -28,6 +28,7 @@ const CountButton = ({title, startCount, onAdd, onSub}) => {
     <View style={styles.counterStyle}>
       <Counter
         count={count}
+        buttonStyle={styles.countButtonStyle}
         textStyle={styles.counterTextStyle}
         onAdd={() => onAdd(count + 1)}
         onSub={() => onSub(count - 1)}
@@ -39,7 +40,6 @@ const CountButton = ({title, startCount, onAdd, onSub}) => {
 const styles = StyleSheet.create({
   counterTextStyle: {
     fontSize: 18,
-    paddingHorizontal: 15,
     fontWeight: 'bold',
   },
   counterStyle: {
@@ -48,8 +48,6 @@ const styles = StyleSheet.create({
     borderColor: '#f5f5f5',
     alignSelf: 'center',
     borderWidth: 2,
-    paddingHorizontal: 15,
-    padding: 5,
   },
   AddButton: {
     justifyContent: 'center',
@@ -64,6 +62,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     color: '#6448de',
+  },
+  countButtonStyle: {
+    paddingHorizontal: 15,
+    paddingVertical: 7,
   },
 });
 

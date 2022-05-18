@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text, StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 
-const Counter = ({count, onSub, onAdd, textStyle}) => {
+const Counter = ({count, onSub, onAdd, textStyle, buttonStyle}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           onSub();
         }}>
-        <View style={styles.button}>
+        <View style={[buttonStyle, styles.button]}>
           <Image source={require('../../assets/icons/icon-minus.png')} />
         </View>
       </TouchableOpacity>
@@ -17,7 +17,7 @@ const Counter = ({count, onSub, onAdd, textStyle}) => {
         onPress={() => {
           onAdd();
         }}>
-        <View style={styles.button}>
+        <View style={[buttonStyle, styles.button]}>
           <Image source={require('../../assets/icons/icon-plus.png')} />
         </View>
       </TouchableOpacity>
