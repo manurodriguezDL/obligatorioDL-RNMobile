@@ -38,7 +38,7 @@ const HomeScreen = () => {
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState(null);
   const cartItems = useSelector(itemsSelector);
-  let products = loading
+  const products = loading
     ? null
     : filterBySearch(updateQuantities(allItems, cartItems), term);
 
