@@ -5,71 +5,58 @@ import {View, StyleSheet, SafeAreaView} from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import ProductsList from '../components/products/ProductsList';
 import Cart from '../components/cart/Cart';
-import ImageCarousel from '../components/carousel/Carousel';
+import PromotedProducts from '../components/promoted/PromotedProducts';
 import LoadingScreen from './LoadingScreen';
 import ErrorScreen from './ErrorScreen';
 
 //Redux, navigation and Api
 import {useSelector} from 'react-redux';
 import {itemsSelector} from '../slices/cart';
-import {getProducts, getPromoted} from '../api/mobileAPI';
+import {getProducts} from '../api/mobileAPI';
 import * as RootNavigation from '../navigation/RootNavigation';
 
 const updateQuantities = (items, cartItems) => {
-  let updatedProducts = [];
-  items.forEach(item => {
-    let itemInCart = cartItems.find(cartItem => cartItem.name === item.name);
-    if (itemInCart === undefined) {
-      updatedProducts.push({...item, quantity: 0});
-    } else {
-      updatedProducts.push({...item, quantity: itemInCart.quantity});
-    }
+  items.map(item => {
+    let itemInCart = cartItems.find(cartItem => cartItem.id === item.id);
+    item.quantity = itemInCart === undefined ? 0 : itemInCart.quantity;
   });
-  return updatedProducts;
+  return items;
+};
+
+const filterBySearch = (products, searchTerm) => {
+  return products.filter(
+    product =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.price.toString().toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 };
 
 const HomeScreen = () => {
   const [term, setTerm] = useState('');
-  const [products, setProducts] = useState(null);
-  const [promoted, setPromoted] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const cartItems = useSelector(itemsSelector);
   const [allItems, setAllItems] = useState(null);
+  const cartItems = useSelector(itemsSelector);
+  let products = loading
+    ? null
+    : filterBySearch(updateQuantities(allItems, cartItems), term);
 
   useEffect(() => {
     const fetchData = async () => {
-      let items, promotedItems;
+      let items;
       try {
         items = await getProducts();
-        promotedItems = await getPromoted();
       } catch (err) {
         console.log('error is', err);
         setError('Oops! something happened. Please try again Later!');
       } finally {
         setAllItems(items.data);
-        setProducts(updateQuantities(items.data, cartItems));
-        setPromoted(promotedItems.data);
         setLoading(false);
       }
     };
-
     fetchData();
-  }, [cartItems]);
-
-  const filterBySearch = searchTerm => {
-    setProducts(
-      allItems.filter(
-        product =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.price
-            .toString()
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()),
-      ),
-    );
-  };
+  }, []);
 
   if (loading) {
     return <LoadingScreen />;
@@ -86,13 +73,12 @@ const HomeScreen = () => {
           <Cart onPress={() => RootNavigation.navigate('Cart')} />
         </View>
         <View style={styles.carousel}>
-          <ImageCarousel data={promoted} />
+          <PromotedProducts />
         </View>
         <SearchBar
           term={term}
           onTermChange={newTerm => {
             setTerm(newTerm);
-            filterBySearch(newTerm);
           }}
           onTermSubmit={() => filterBySearch(term)}
         />

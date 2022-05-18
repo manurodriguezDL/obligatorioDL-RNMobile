@@ -15,13 +15,6 @@ const LoginScreen = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        {/* <TouchableOpacity
-          onPress={() => {
-            dispatch(login());
-          }}>
-          <Text style={styles.text}>Login!</Text>
-        </TouchableOpacity> */}
-
         <CompleteButton
           title="Login"
           onPress={() => {

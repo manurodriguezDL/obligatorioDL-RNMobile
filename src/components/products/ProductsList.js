@@ -46,8 +46,9 @@ const ProductsList = ({items}) => {
 const styles = StyleSheet.create({
   header: {
     fontSize: 18,
-    marginVertical: 15,
     fontWeight: 'bold',
+    backgroundColor: '#fafafa',
+    paddingVertical: 10,
   },
   product: {
     borderBottomColor: '#cacad4',
